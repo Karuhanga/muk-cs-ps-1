@@ -1,0 +1,42 @@
+Get GPS co-ordinates of current user position
+Use two co-ordinates to measure distance between them
+Plot GPS co-ordinates on sprite
+Extract sprite image to measure its area
+Divide sprite image/shape into more workable shapes
+Measure respective areas
+Design app UI
+
+
+Method One- GPS Dependent
+Start recording button and record all GPS points until stop is hit
+Then USe GPS points to esimate area
+
+Method Two- Accelerometer Dependent(Gradient fail)
+Start recording button and commence couting 'footsteps'
+User has to hit the turning button on each turn until when back to startng point when stop button is hit
+Generate guess of area layout with recordings
+
+Method Three- Image and estimate area from image
+*Angle of inclination required
+*User's height
+*Point/Level of holding phone
+
+
+Product functions
+The application must let the user measure the length of a plot boundary and calculate the area of a plot
+	Take GPS readings and measure distancebetween two recorded points
+	Take Accl. Readings and approximate walking behaviour
+	Generate approximation of plot layout
+	Calculate the area of a plot based on this recorded data
+	Store saved calculations
+
+Design and implementation constraints
+	Availability of device with both hardware components
+	Availability of wide range of devices for testing system, coupled with lack of appropriate devices to run the required emulators
+	The system will make use of the GPS component that is widely known for its power drain especially on low end devices... Developers will have to ensure the efficient use of this component... Especially important because both hardware componets will be in use at the same time if available
+	Internet Access... for accurate GPS readings
+	Design for minimal future maintenance... reduce technical debt
+	Where feasible, developers are expected to follow Android design guidelines, which include but are not limited to material design and efficient memory use
+
+In this part, make sure to include a simple diagram that shows the major components of the overall system, subsystem interconnections, and external interface
+In this part, make sure to include a simple diagram that shows the major components of the overall system, subsystem interconnections, and external interface
