@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Planimeter</string>
+    <string name="textView_guide_1">Hit the start button to start recording</string>
+    <string name="textView_guide_2">Hit the turn button on each turn and stop when measurement is complete</string>
+    <string name="textView_update_1">Ready...</string>
+    <string name="textView_update_2">Recording...</string>
 </resources>
