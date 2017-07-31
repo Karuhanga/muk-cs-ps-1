@@ -2,6 +2,7 @@ package ug.karuhanga.planimeter;
 
 /**
  * Created by karuhanga on 7/30/17.
+ * Application-Wide Constant Values
  */
 
 public interface Constants {
