@@ -31,7 +31,7 @@ final class StepDetector extends Thread {
         this.event = event;
         this.context= context;
         this.listener = listener;
-        mLimit = 10;
+        mLimit = 5;// TODO: vary this constant to find sweet spot
         mLastMatch = -1;
         int h = 480; // TODO: vary this constant to find sweet spot
         mYOffset = h * 0.5f;
@@ -47,7 +47,6 @@ final class StepDetector extends Thread {
     private void processData() {
 
         synchronized (context) {
-//            Toast.makeText(context, "working", Toast.LENGTH_SHORT).show();
             float vSum = 0;
             for (int i = 0; i < 3; i++) {
                 final float v = mYOffset + event.values[i] * mScale[1];

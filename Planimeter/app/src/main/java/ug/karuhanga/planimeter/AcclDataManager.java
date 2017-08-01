@@ -67,6 +67,7 @@ final class AcclDataManager implements SensorEventListener, StepTakenListener {
                     previousReadings[i]= sensorEvent.values[i];
                 }
             }
+            //call each step detect attempt on separate thread
             new StepDetector(sensorEvent, context, this).start();
         }
     }
