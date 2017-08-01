@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by karuhanga on 7/30/17.
+ * Created by
+ * @author Karuhanga Lincoln
+ * on 7/30/17.
  * GPS Data collection and Analysis Class
  */
 

@@ -9,19 +9,23 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements Constants, View.OnClickListener {
     //File-Wide values
     private GPSDataManager gpsDataManager;
+    private AcclDataManager acclDataManager;
     private FloatingActionButton fab_start_recording;
     private FloatingActionButton fab_end_recording;
     private FloatingActionButton fab_on_turn;
+    private TextView textViewUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         gpsDataManager = new GPSDataManager(this);
+        acclDataManager = new AcclDataManager(this);
 
         setContentView(R.layout.activity_main);
 
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         fab_start_recording= (FloatingActionButton) findViewById(R.id.fab_start_recording);
         fab_end_recording= (FloatingActionButton) findViewById(R.id.fab_end_recording);
         fab_on_turn= (FloatingActionButton) findViewById(R.id.fab_on_turn);
+        textViewUpdate= (TextView) findViewById(R.id.textView_update);
 
         //set on-click listeners
         fab_start_recording.setOnClickListener(this);
@@ -83,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
     //perform actions that consist of recording necessary data
     private void enterRecordingMode(){
         startGPSComponent("Initial");
+        acclDataManager.startRecording();
         fab_start_recording.setVisibility(View.INVISIBLE);
         fab_end_recording.setVisibility(View.VISIBLE);
         fab_on_turn.setVisibility(View.VISIBLE);
@@ -91,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
     //finish data collection
     private void exitRecordingMode(){
         gpsDataManager.stopRecording();
+        acclDataManager.stopRecording();
         fab_start_recording.setVisibility(View.VISIBLE);
         fab_end_recording.setVisibility(View.INVISIBLE);
         fab_on_turn.setVisibility(View.INVISIBLE);
