@@ -7,6 +7,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.SphericalUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,7 @@ final class GPSDataManager implements LocationListener, Constants {
     private Context context;
     private LocationManager locationManager;
     private List<Location> locations;
+    private List<LatLng> latLngs;
     private int len_locations;
     private List<Location> turns;
     private int len_turns;
@@ -29,6 +33,7 @@ final class GPSDataManager implements LocationListener, Constants {
         this.context= context;
         this.locationManager= (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         locations= new ArrayList<>();
+        latLngs= new ArrayList<>();
         len_locations= 0;
         turns= new ArrayList<>();
         len_turns= 0;
@@ -37,6 +42,7 @@ final class GPSDataManager implements LocationListener, Constants {
     //start recording location changes (possibly raise and throw security exception if GPS Access not permitted)
     void startRecording() throws SecurityException{
         this.locations= new ArrayList<>();
+        this.latLngs= new ArrayList<>();
         len_locations= 0;
         this.turns= new ArrayList<>();
         len_turns= 0;
@@ -62,6 +68,21 @@ final class GPSDataManager implements LocationListener, Constants {
     void stopRecording(){
         //de-register location change listener on collection complete
         this.locationManager.removeUpdates(this);
+        this.generateLatLngs();
+    }
+    
+    void generateLatLngs(){
+        for (Location location : this.locations) {
+            this.latLngs.add(new LatLng(location.getLatitude(),location.getLongitude()));
+        }
+        if (!(latLngs.get(0).equals(latLngs.get(len_locations-1)))){
+            latLngs.add(latLngs.get(0));
+        }
+    }
+
+    double evaluateArea(){
+        double result= SphericalUtil.computeArea(this.latLngs);
+        return result;
     }
 
     //Location Listener Methods

@@ -101,6 +101,10 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         fab_start_recording.setVisibility(View.VISIBLE);
         fab_end_recording.setVisibility(View.INVISIBLE);
         fab_on_turn.setVisibility(View.INVISIBLE);
+        //TODO: Replace temporary display with better UI
+        double gpsArea= this.gpsDataManager.evaluateArea();
+        String result= String.format("%.3f", gpsArea);
+        this.textViewUpdate.setText(result+" Square Metres!");
     }
 
     //data collection actions related to turning
