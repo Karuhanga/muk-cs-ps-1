@@ -75,9 +75,7 @@ final class GPSDataManager implements LocationListener, Constants {
         for (Location location : this.locations) {
             this.latLngs.add(new LatLng(location.getLatitude(),location.getLongitude()));
         }
-        if (!(latLngs.get(0).equals(latLngs.get(len_locations-1)))){
-            latLngs.add(latLngs.get(0));
-        }
+        latLngs.add(latLngs.get(0));
     }
 
     double evaluateArea(){
