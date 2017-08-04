@@ -72,6 +72,9 @@ final class GPSDataManager implements LocationListener, Constants {
     }
     
     void generateLatLngs(){
+        if (len_locations<2){
+            return;
+        }
         for (Location location : this.locations) {
             this.latLngs.add(new LatLng(location.getLatitude(),location.getLongitude()));
         }
@@ -79,6 +82,9 @@ final class GPSDataManager implements LocationListener, Constants {
     }
 
     double evaluateArea(){
+        if (len_locations<2){
+            return 0.0;
+        }
         double result= SphericalUtil.computeArea(this.latLngs);
         return result;
     }

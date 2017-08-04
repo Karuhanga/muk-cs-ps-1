@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
     private FloatingActionButton fab_end_recording;
     private FloatingActionButton fab_on_turn;
     private TextView textViewUpdate;
+    private TextView textViewGuide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         fab_end_recording= (FloatingActionButton) findViewById(R.id.fab_end_recording);
         fab_on_turn= (FloatingActionButton) findViewById(R.id.fab_on_turn);
         textViewUpdate= (TextView) findViewById(R.id.textView_update);
+        textViewGuide= (TextView) findViewById(R.id.textView_guide);
 
         //set on-click listeners
         fab_start_recording.setOnClickListener(this);
@@ -89,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
     private void enterRecordingMode(){
         startGPSComponent("Initial");
         acclDataManager.startRecording();
+        textViewUpdate.setText(getText(R.string.textView_update_2));
+        textViewGuide.setText(getText(R.string.textView_guide_2));
         fab_start_recording.setVisibility(View.INVISIBLE);
         fab_end_recording.setVisibility(View.VISIBLE);
         fab_on_turn.setVisibility(View.VISIBLE);
@@ -98,13 +102,19 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
     private void exitRecordingMode(){
         gpsDataManager.stopRecording();
         acclDataManager.stopRecording();
+        textViewGuide.setText(getText(R.string.textView_guide_1));
         fab_start_recording.setVisibility(View.VISIBLE);
         fab_end_recording.setVisibility(View.INVISIBLE);
         fab_on_turn.setVisibility(View.INVISIBLE);
         //TODO: Replace temporary display with better UI
         double gpsArea= this.gpsDataManager.evaluateArea();
-        String result= String.format("%.3f", gpsArea);
-        this.textViewUpdate.setText(result+" Square Metres!");
+        if (gpsArea>0.0) {
+            String result = String.format("%.3f", gpsArea);
+            this.textViewUpdate.setText(result + " Square Metres!");
+        }
+        else{
+            this.textViewUpdate.setText("Unfortunately, there was no result");
+        }
     }
 
     //data collection actions related to turning
