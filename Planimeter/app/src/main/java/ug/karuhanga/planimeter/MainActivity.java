@@ -64,12 +64,12 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
 
     }
 
-    //request location permission (for versions since Marshmellow... request permission Dynamically)
+    //request location permission (for versions since Marshmallow... request permission Dynamically)
     private void getLocationPermission(){
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, CODE_LOCATION_REQUEST);
     }
 
-    //check if granted location permission (for versions since Marshmellow... request permission Dynamically)
+    //check if granted location permission (for versions since Marshmallow... request permission Dynamically)
     private boolean permitted(){
         return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
