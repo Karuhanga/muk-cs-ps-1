@@ -1,7 +1,9 @@
 package ug.karuhanga.planimeter;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
     private FloatingActionButton fab_start_recording;
     private FloatingActionButton fab_end_recording;
     private FloatingActionButton fab_on_turn;
+    private FloatingActionButton fab_simulate;
     private TextView textViewUpdate;
     private TextView textViewGuide;
 
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         fab_start_recording= (FloatingActionButton) findViewById(R.id.fab_start_recording);
         fab_end_recording= (FloatingActionButton) findViewById(R.id.fab_end_recording);
         fab_on_turn= (FloatingActionButton) findViewById(R.id.fab_on_turn);
+        fab_simulate= (FloatingActionButton) findViewById(R.id.fab_simulate);
         textViewUpdate= (TextView) findViewById(R.id.textView_update);
         textViewGuide= (TextView) findViewById(R.id.textView_guide);
 
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         fab_start_recording.setOnClickListener(this);
         fab_end_recording.setOnClickListener(this);
         fab_on_turn.setOnClickListener(this);
+        fab_simulate.setOnClickListener(this);
 
 
     }
@@ -96,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         fab_start_recording.setVisibility(View.INVISIBLE);
         fab_end_recording.setVisibility(View.VISIBLE);
         fab_on_turn.setVisibility(View.VISIBLE);
+        fab_simulate.setVisibility(View.INVISIBLE);
     }
 
     //finish data collection
@@ -106,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         fab_start_recording.setVisibility(View.VISIBLE);
         fab_end_recording.setVisibility(View.INVISIBLE);
         fab_on_turn.setVisibility(View.INVISIBLE);
+        fab_simulate.setVisibility(View.VISIBLE);
         //TODO: Replace temporary display with better UI
         double gpsArea= this.gpsDataManager.evaluateArea();
         if (gpsArea>0.0) {
@@ -135,6 +142,13 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         }
         else if (view.equals(fab_on_turn)){
             onTurn();
+        }
+        else if (view.equals(fab_simulate)){
+            Intent intent= new Intent(this, Simulate.class);
+            intent.setAction(Intent.ACTION_VIEW);
+            Uri path= Uri.parse("android.resource://"+getApplicationContext().getPackageName()+"/"+"raw/sb.obj");
+            intent.setData(path);
+            startActivity(intent);
         }
     }
 }

@@ -38,6 +38,21 @@
         app:srcCompat="@drawable/ic_replay_black_24dp" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_simulate"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:fadingEdge="horizontal|vertical"
+        android:visibility="invisible"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/fab_end_recording"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/plot" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_end_recording"
         android:layout_width="56dp"
         android:layout_height="56dp"
