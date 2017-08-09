@@ -1,29 +1,21 @@
 package ug.karuhanga.planimeter;/*
     ObjViewer -- viewer for .obj files -- mainline.
 
-    Copyright 2011-2014 by Lawrence D'Oliveiro <ldo@geek-central.gen.nz>.
+    Partial credits to Lawrence D'Oliveiro <ldo@geek-central.gen.nz>.
 
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not
-    use this file except in compliance with the License. You may obtain a copy of
-    the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-    License for the specific language governing permissions and limitations under
-    the License.
 */
 
 
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 public class Simulate extends AppCompatActivity
   {
     java.util.Map<android.view.MenuItem, Runnable> OptionsMenu;
 
     ObjectView TheObjectView;
+
+    private int[] CURRENT_OBJECT= new int[2];
 
     final java.security.SecureRandom Random = new java.security.SecureRandom();
       /* why use anything less */
@@ -71,7 +63,7 @@ public class Simulate extends AppCompatActivity
 
     private ObjReader.Model ReadObj
       (
-        final String ObjFileName
+        final int[] file
       )
       {
         ObjReader.Model Result = null;
@@ -79,7 +71,7 @@ public class Simulate extends AppCompatActivity
           {
             Result = ObjReader.ReadObj
               (
-                /*FileName =*/ ObjFileName,
+                /*FileName =*/ file[0],
                       getApplicationContext(),
                 /*LoadMaterials =*/
                     new ObjReader.MaterialLoader()
@@ -94,12 +86,7 @@ public class Simulate extends AppCompatActivity
                                 ObjReader.ReadMaterials
                                   (
                                     /*FileName =*/
-                                        new java.io.File
-                                          (
-                                            new java.io.File(ObjFileName)
-                                                .getParentFile(),
-                                            MatFileName
-                                          ).getPath(),
+                                          file[1],
                                           getApplicationContext(),
                                     /*CurMaterials =*/ Materials
                                   );
@@ -126,8 +113,6 @@ public class Simulate extends AppCompatActivity
             Result;
       } /*ReadObj*/
 
-    private String CurObjFileName = null;
-    private static final String CurFileKey = "curfile";
 
     private class OptionsDialog
         extends android.app.Dialog
@@ -237,93 +222,7 @@ public class Simulate extends AppCompatActivity
               {
                 public void run()
                   {
-                    startActivityForResult
-                      (
-                        new android.content.Intent(android.content.Intent.ACTION_PICK)
-                            .setClass(Simulate.this, Picker.class)
-                            .putExtra(Picker.ExtensionID, ".obj")
-                            .putExtra
-                              (
-                                Picker.LookInID,
-                                new String[]
-                                    {
-                                        "Models",
-                                        "Download",
-                                    }
-                              ),
-                        LoadObjectRequest
-                      );
-                  } /*run*/
-              } /*Runnable*/
-          );
-        OptionsMenu.put
-          (
-            TheMenu.add(R.string.reset_view),
-            new Runnable()
-              {
-                public void run()
-                  {
-                    TheObjectView.ResetOrientation(true);
-                  } /*run*/
-              } /*Runnable*/
-          );
-        OptionsMenu.put
-          (
-            TheMenu.add(R.string.options_lighting),
-            new Runnable()
-              {
-                public void run()
-                  {
-                    new OptionsDialog
-                      (
-                        /*ctx =*/ Simulate.this,
-                        /*Title =*/ getString(R.string.lighting_title),
-                        /*Action =*/
-                            new SelectedIDAction()
-                              {
-                                public void Set
-                                  (
-                                    int SelectedID
-                                  )
-                                  {
-                                    TheObjectView.SetUseLighting(SelectedID != 0);
-                                  } /*Set*/
-                              } /*SelectedIDAction*/,
-                        /*InitialButtonID =*/ TheObjectView.GetUseLighting() ? 1 : 0
-                      )
-                        .AddButton(getString(R.string.on), 1)
-                        .AddButton(getString(R.string.off), 0)
-                        .show();
-                  } /*run*/
-              } /*Runnable*/
-          );
-        OptionsMenu.put
-          (
-            TheMenu.add(R.string.options_orient_faces),
-            new Runnable()
-              {
-                public void run()
-                  {
-                    new OptionsDialog
-                      (
-                        /*ctx =*/ Simulate.this,
-                        /*Title =*/ getString(R.string.orient_faces_title),
-                        /*Action =*/
-                            new SelectedIDAction()
-                              {
-                                public void Set
-                                  (
-                                    int SelectedID
-                                  )
-                                  {
-                                    TheObjectView.SetClockwiseFaces(SelectedID != 0);
-                                  } /*Set*/
-                              } /*SelectedIDAction*/,
-                        /*InitialButtonID =*/ TheObjectView.GetClockwiseFaces() ? 1 : 0
-                      )
-                        .AddButton(getString(R.string.anticlockwise), 0)
-                        .AddButton(getString(R.string.clockwise), 1)
-                        .show();
+                    startActivity(new android.content.Intent(android.content.Intent.ACTION_PICK).setClass(Simulate.this, Picker.class).putExtra(Picker.ExtensionID, ".obj").putExtra(Picker.LookInID, new String[]{"Models", "Download",}));
                   } /*run*/
               } /*Runnable*/
           );
@@ -397,10 +296,11 @@ public class Simulate extends AppCompatActivity
         if (ToRestore != null)
           {
           /* reload previously-viewed object */
-            CurObjFileName = ToRestore.getString(CurFileKey);
-            if (PreviousModel == null && CurObjFileName != null)
+            int[] savedObject = ToRestore.getIntArray(getString(R.string.name_objects_intent));
+            if (PreviousModel == null && savedObject != null)
               {
-                TheObjectView.SetObject(ReadObj(CurObjFileName));
+                TheObjectView.SetObject(ReadObj(savedObject));
+                CURRENT_OBJECT= savedObject;
               } /*if*/
             TheObjectView.onRestoreInstanceState(ToRestore.getParcelable("ug.karuhanga.planimeter.ObjectView"));
               /* doesn't seem to be done by GLSurfaceView */
@@ -423,6 +323,7 @@ public class Simulate extends AppCompatActivity
         android.content.Intent TheIntent
       )
       {
+        setIntent(TheIntent);
         String Action = TheIntent.getAction();
         if (Action != null)
           {
@@ -430,11 +331,17 @@ public class Simulate extends AppCompatActivity
           } /*if*/
         if (Action == android.content.Intent.ACTION_VIEW)
           {
-            final String ObjFileName = TheIntent.getData().getPath();
-            final ObjReader.Model NewObj = ReadObj(ObjFileName);
+            int[] data= new int[2];
+            try {
+              data = TheIntent.getExtras().getIntArray("objects");
+            }catch (NullPointerException e){
+              Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+              data= CURRENT_OBJECT;
+            }
+            final ObjReader.Model NewObj = ReadObj(data);
             if (NewObj != null)
               {
-                CurObjFileName = ObjFileName;
+                CURRENT_OBJECT = data;
                 TheObjectView.SetObject(NewObj);
               } /*if*/
           } /*if*/
@@ -468,10 +375,10 @@ public class Simulate extends AppCompatActivity
         android.os.Bundle ToRestore
       )
       {
-        if (CurObjFileName != null)
+        if (CURRENT_OBJECT != null)
           {
           /* remember what file I was looking at */
-            ToRestore.putString(CurFileKey, CurObjFileName);
+            ToRestore.putIntArray(getString(R.string.name_objects_intent), CURRENT_OBJECT);
           } /*if*/
         ToRestore.putParcelable("ug.karuhanga.planimeter.ObjectView", TheObjectView.onSaveInstanceState());
           /* doesn't seem to be done by GLSurfaceView */
@@ -494,23 +401,5 @@ public class Simulate extends AppCompatActivity
             Handled;
       } /*onOptionsItemSelected*/
 
-    @Override
-    public void onActivityResult
-      (
-        int RequestCode,
-        int ResultCode,
-        android.content.Intent Data
-      )
-      {
-        System.err.printf("ObjViewer.onActivityResult request %d result %d\n", RequestCode, ResultCode); /* debug */
-        if (ResultCode != android.app.Activity.RESULT_CANCELED)
-          {
-            final RequestResponseAction Action = ActivityResultActions.get(RequestCode);
-            if (Action != null)
-              {
-                Action.Run(ResultCode, Data);
-              } /*if*/
-          } /*if*/
-      } /*onActivityResult*/
 
   } /*ug.karuhanga.planimeter.Simulate*/

@@ -146,8 +146,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         else if (view.equals(fab_simulate)){
             Intent intent= new Intent(this, Simulate.class);
             intent.setAction(Intent.ACTION_VIEW);
-            Uri path= Uri.parse("android.resource://"+getApplicationContext().getPackageName()+"/"+"raw/sb.obj");
-            intent.setData(path);
+            intent.putExtra(getString(R.string.name_objects_intent), new int[] {R.raw.default_obj, R.raw.default_mtl});
             startActivity(intent);
         }
     }

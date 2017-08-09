@@ -16,7 +16,20 @@ package ug.karuhanga.planimeter;/*
     the License.
 */
 
+import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.widget.Toast;
+
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import static android.content.Intent.ACTION_VIEW;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
 
 public class Picker extends android.app.Activity
   {
@@ -32,15 +45,17 @@ public class Picker extends android.app.Activity
 
     static class PickerItem
       {
-        String FullPath;
+        int[] resIDs= new int[2];
+        String name;
         boolean Selected;
 
         public PickerItem
           (
-            String FullPath
+            int[] resIDs, String name
           )
           {
-            this.FullPath = FullPath;
+            this.resIDs = resIDs;
+            this.name= name;
             this.Selected = false;
           } /*PickerItem*/
 
@@ -48,8 +63,7 @@ public class Picker extends android.app.Activity
           /* returns the display name for the item. I use
             the unqualified filename. */
           {
-            return
-                new java.io.File(FullPath).getName();
+            return name;
           } /*toString*/
 
       } /*PickerItem*/
@@ -155,36 +169,16 @@ public class Picker extends android.app.Activity
         PickerListView.setAdapter(PickerList);
         PickerList.setNotifyOnChange(false);
         PickerList.clear();
-          {
-            final String ExternalStorage =
-                android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
-            final String Extension = getIntent().getStringExtra(ExtensionID);
-            for (String Here : getIntent().getStringArrayExtra(LookInID))
-              {
-                final java.io.File ThisDir = new java.io.File
-                  (
-                        (Here.startsWith("/") ?
-                            ""
-                        :
-                            ExternalStorage + "/"
-                        )
-                    +
-                        Here
-                  );
-                if (ThisDir.isDirectory())
-                  {
-                    for (java.io.File Item : ThisDir.listFiles())
-                      {
-                        if (Item.getName().endsWith(Extension))
-                          {
-                            PickerList.add(new PickerItem(Item.getAbsolutePath()));
-                          } /*if*/
-                      } /*for*/
-                  } /* if*/
-              } /*for*/
-          }
+
+        Resources res= getApplicationContext().getResources();
+        int[] objs= new int[]{R.raw.default_obj, R.raw.asset1_obj, R.raw.asset2_obj};
+        int[] mtls= new int[]{R.raw.default_mtl, R.raw.asset1_mtl, R.raw.asset2_mtl};
+
+        for (int i = 0; i < 3; i++) {
+          PickerList.add(new PickerItem(new int[]{objs[i], mtls[i]}, res.getResourceName(objs[i]).split("_")[0].split("/")[1]));
+        }
         PickerList.notifyDataSetChanged();
-        ((android.widget.Button)findViewById(R.id.item_select)).setOnClickListener
+        ((FloatingActionButton)findViewById(R.id.item_select)).setOnClickListener
           (
             new View.OnClickListener()
               {
@@ -209,18 +203,7 @@ public class Picker extends android.app.Activity
                       } /*for*/
                     if (Selected != null)
                       {
-                        setResult
-                          (
-                            android.app.Activity.RESULT_OK,
-                            new android.content.Intent()
-                                .setData
-                                  (
-                                    android.net.Uri.fromFile
-                                      (
-                                        new java.io.File(Selected.FullPath)
-                                      )
-                                  )
-                          );
+                        startActivity(new Intent(Picker.this, Simulate.class).putExtra("objects", Selected.resIDs).addFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_SINGLE_TOP).setAction(ACTION_VIEW));
                         finish();
                       } /*if*/
                   } /*onClick*/

@@ -7,7 +7,7 @@
 
 
     <!-- menu items -->
-    <string name="pick_file">Open...</string>
+    <string name="pick_file">New Simulation...</string>
     <string name="reset_view">Reset View</string>
     <string name="random_view">Random View</string>
     <string name="options_lighting">Lighting...</string>
@@ -29,4 +29,5 @@
     <string name="startup_prompt">Use Menu/Open... to open a .obj file</string>
     <string name="obj_load_fail">Error loading file: %s</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="name_objects_intent">objects</string>
 </resources>

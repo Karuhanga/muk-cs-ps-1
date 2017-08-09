@@ -1015,7 +1015,7 @@ public class ObjReader
 
     public static Model ReadObj
       (
-        String FileName,
+        int file,
         Context context,
         MaterialLoader LoadMaterials
       )
@@ -1025,7 +1025,7 @@ public class ObjReader
         java.io.InputStream ReadFrom = null;
         try
           {
-            ReadFrom = context.getResources().openRawResource(R.raw.farmhouse_obj);
+            ReadFrom = context.getResources().openRawResource(file);
           }
         catch (Resources.NotFoundException IOError)
           {
@@ -1049,7 +1049,7 @@ public class ObjReader
 
     public static MaterialSet ReadMaterials
       (
-        String FileName,
+        int file,
         Context context,
         MaterialSet CurMaterials
       )
@@ -1058,7 +1058,7 @@ public class ObjReader
         java.io.InputStream ReadFrom = null;
         try
           {
-            ReadFrom = context.getResources().openRawResource(R.raw.farmhouse_mtl);
+            ReadFrom = context.getResources().openRawResource(file);
           }
         catch (Resources.NotFoundException IOError)
           {
