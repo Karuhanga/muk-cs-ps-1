@@ -1,9 +1,9 @@
 package ug.karuhanga.planimeter;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -32,12 +32,12 @@ import com.google.android.gms.maps.model.PolylineOptions;
  */
 
 
-public class MainActivity extends AppCompatActivity implements Constants, View.OnClickListener, GPSResultListener, OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements Constants, View.OnClickListener, GPSResultListener, OnMapReadyCallback, StepTakenListener {
     //File-Wide values
     private GPSDataManager gpsDataManager;
     private AcclDataManager acclDataManager;
     private GoogleMap resultMap;
-    Polyline polyline;
+    private Polyline polyline;
     private PolylineOptions polylineOptions;
     private LatLng center;
     private FloatingActionButton fab_start_recording;
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
     private MapView mapViewResult;
     private CardView cardMap;
     private ProgressBar progressBar;
+    private boolean status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         progressBar= (ProgressBar) findViewById(R.id.progressBar_Main);
         polylineOptions= null;
         polyline= null;
+        status= false;
+
 
         //set on-click listeners
         fab_start_recording.setOnClickListener(this);
@@ -82,46 +85,6 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         }
 
         mapViewResult.onCreate(bundle);
-
-
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-        mapViewResult.onStart();
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-        mapViewResult.onStop();
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        mapViewResult.onResume();
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-        mapViewResult.onPause();
-    }
-
-    @Override
-    public void onLowMemory(){
-        super.onLowMemory();
-        mapViewResult.onLowMemory();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState){
-        Bundle mapBundle= new Bundle();
-        outState.putBundle("mapBundle", mapBundle);
-        super.onSaveInstanceState(outState);
-        mapViewResult.onSaveInstanceState(mapBundle);
     }
 
     //start recording user position (only if GPS permission was granted for Android Versions starting Marsmellow)
@@ -167,19 +130,6 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         return true;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults.length > 0 && allGranted(grantResults)) {
-            //try restart after permission granted
-            startDataRecording("Passed");
-        }
-        else {
-            //send failed signal if permission rejected
-            startDataRecording("Failed");
-        }
-    }
-
     //perform actions that consist of recording necessary data
     private void enterRecordingMode(){
         startDataRecording("Initial");
@@ -209,32 +159,9 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
 
     }
 
-
-    //onClick Listener Methods
     @Override
-    public void onClick(View view) {
-        if (view.equals(fab_start_recording)){
-            enterRecordingMode();
-        }
-        else if (view.equals(fab_end_recording)){
-            exitRecordingMode();
-        }
-        else if (view.equals(fab_simulate)){
-            Intent intent= new Intent(this, Simulate.class);
-            intent.setAction(Intent.ACTION_VIEW);
-            intent.putExtra(getString(R.string.name_objects_intent), new int[] {R.raw.default_obj, R.raw.default_mtl});
-            startActivity(intent);
-        }
-    }
-
-    @Override
-    public void showLoader() {
-
-    }
-
-    @Override
-    public void hideLoader() {
-
+    public void dataReceived() {
+        acclDataManager.resetCount();
     }
 
     @Override
@@ -266,5 +193,97 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         Toast.makeText(this, polylineOptions.toString(), Toast.LENGTH_SHORT).show();
         this.polyline= this.resultMap.addPolyline(polylineOptions);
         cardMap.setVisibility(View.VISIBLE);
+    }
+
+    //onClick Listener Methods
+    @Override
+    public void onClick(View view) {
+        if (view.equals(fab_start_recording)){
+            enterRecordingMode();
+        }
+        else if (view.equals(fab_end_recording)){
+            exitRecordingMode();
+        }
+        else if (view.equals(fab_simulate)){
+            Intent intent= new Intent(this, Simulate.class);
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.putExtra(getString(R.string.name_objects_intent), new int[] {R.raw.default_obj, R.raw.default_mtl});
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0 && allGranted(grantResults)) {
+            //try restart after permission granted
+            startDataRecording("Passed");
+        }
+        else {
+            //send failed signal if permission rejected
+            startDataRecording("Failed");
+        }
+    }
+
+    @Override
+    public void stepTaken() {
+    }
+
+    @Override
+    public void pauseRecordings() {
+        this.status= true;
+        textViewUpdate.setText("Freeze!\nPlease Wait a moment as the connection is restored");
+        textViewUpdate.setTextSize(20);
+    }
+
+    @Override
+    public void resumeRecordings() {
+        Toast.makeText(this, "Please proceed", Toast.LENGTH_LONG).show();
+        textViewUpdate.setText("Recording...");
+        textViewUpdate.setTextSize(30);
+        this.status= false;
+    }
+
+    @Override
+    public boolean paused() {
+        return true&&status;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        mapViewResult.onStart();
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        mapViewResult.onStop();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mapViewResult.onResume();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        mapViewResult.onPause();
+    }
+
+    @Override
+    public void onLowMemory(){
+        super.onLowMemory();
+        mapViewResult.onLowMemory();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        Bundle mapBundle= new Bundle();
+        outState.putBundle("mapBundle", mapBundle);
+        super.onSaveInstanceState(outState);
+        mapViewResult.onSaveInstanceState(mapBundle);
     }
 }

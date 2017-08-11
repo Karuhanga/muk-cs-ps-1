@@ -6,4 +6,7 @@ package ug.karuhanga.planimeter;
 
 interface StepTakenListener {
     void stepTaken();
+    void pauseRecordings();
+    void resumeRecordings();
+    boolean paused();
 }

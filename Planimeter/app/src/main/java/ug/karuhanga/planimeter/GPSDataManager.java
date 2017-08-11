@@ -112,7 +112,8 @@ final class GPSDataManager implements LocationListener, Constants {
     @Override
     public void onLocationChanged(Location location) {
         //TODO Remove Unnecessary Toast
-        Toast.makeText(this.context, "Adding Location: "+location.toString(), Toast.LENGTH_SHORT).show();
+        ((GPSResultListener) context).dataReceived();
+        Toast.makeText(this.context, "Ping", Toast.LENGTH_SHORT).show();
         locations.add(location);
         len_locations++;
     }

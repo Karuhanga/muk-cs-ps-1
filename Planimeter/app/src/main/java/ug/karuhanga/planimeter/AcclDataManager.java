@@ -37,9 +37,39 @@ final class AcclDataManager implements SensorEventListener, StepTakenListener {
             @Override
             public void run() {
                 //TODO: Remove Unnecessary Toast
+                if (stepCount>15 && !(((StepTakenListener) context).paused())){
+                    ((StepTakenListener) context).pauseRecordings();
+                }
                 Toast.makeText(context, "Step "+String.valueOf(stepCount), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void pauseRecordings() {
+
+    }
+
+    @Override
+    public void resumeRecordings() {
+
+    }
+
+    @Override
+    public boolean paused() {
+        return false;
+    }
+
+    public void resetCount(){
+        ((Activity) context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (((StepTakenListener) context).paused()){
+                    ((StepTakenListener) context).resumeRecordings();
+                }
+            }
+        });
+        this.stepCount= 0;
     }
 
     void startRecording(){

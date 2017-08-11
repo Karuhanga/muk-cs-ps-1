@@ -10,7 +10,6 @@ import org.json.JSONObject;
  */
 
 interface GPSResultListener {
-    void showLoader();
-    void hideLoader();
+    void dataReceived();
     boolean displayResult(PolylineOptions polylineOptions, Double area, LatLng center);
 }
