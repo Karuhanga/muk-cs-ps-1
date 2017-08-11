@@ -1,6 +1,7 @@
 package ug.karuhanga.planimeter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.SphericalUtil;
 import com.google.maps.android.data.geojson.GeoJsonFeature;
 import com.google.maps.android.data.geojson.GeoJsonLineString;
@@ -97,17 +100,12 @@ final class GPSDataManager implements LocationListener, Constants {
     }
 
     private void renderResult(double result) {
-        GeoJsonLineString lineString= new GeoJsonLineString(latLngs);
-        GeoJsonFeature feature= new GeoJsonFeature(lineString, "layerData", null, null);
-        JSONObject object= new JSONObject();
-        try {
-            object.put("type", "Feature");
-            object.put("geometry", feature);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            object= null;
+        PolylineOptions polylineOptions= new PolylineOptions();
+        for (int i = 0; i < len_locations; i++) {
+            polylineOptions.add(latLngs.get(i), latLngs.get(i+1)).width(5).color(Color.RED);
         }
-        ((GPSResultListener) context).displayResult(object, Double.valueOf(result), latLngs.get(0));
+
+        ((GPSResultListener) context).displayResult(polylineOptions, Double.valueOf(result), latLngs.get(0));
     }
 
     //Location Listener Methods

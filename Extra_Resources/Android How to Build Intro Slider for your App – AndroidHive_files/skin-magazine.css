@@ -1,0 +1,905 @@
+/**
+ * Skin: Magazine 
+ */
+/**
+ * Change Main Color
+ */
+input[type="submit"],
+button,
+input[type="button"],
+.button,
+.cart-action .cart-link .counter,
+.main-head.compact .posts-ticker .heading,
+.single-cover .overlay .post-cat a,
+.comments-list .bypostauthor .post-author,
+.cat-label a:hover,
+.cat-label.color a,
+.post-thumb:hover .cat-label a,
+.products-block .more-link:hover,
+.beauty-slider .slick-dots .slick-active button,
+.carousel-slider .category,
+.grid-b-slider .category,
+.page-links .current,
+.page-links a:hover,
+.page-links > span,
+.widget-posts .posts.full .counter:before,
+.woocommerce span.onsale,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit,
+.woocommerce a.button.alt,
+.woocommerce a.button.alt:hover,
+.woocommerce button.button.alt,
+.woocommerce button.button.alt:hover,
+.woocommerce input.button.alt,
+.woocommerce input.button.alt:hover,
+.woocommerce #respond input#submit.alt,
+.woocommerce #respond input#submit.alt:hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce #respond input#submit:hover,
+.woocommerce nav.woocommerce-pagination ul li span.current,
+.woocommerce nav.woocommerce-pagination ul li a:hover,
+.woocommerce ul.products .add_to_cart_button,
+.woocommerce ul.products .added_to_cart,
+.woocommerce .widget_price_filter .price_slider_amount .button {
+  background: #ec0e0e;
+}
+
+blockquote:before,
+.main-color,
+.top-bar .social-icons a:hover,
+.navigation .menu > li:hover > a,
+.navigation .menu > .current-menu-item > a,
+.navigation .menu > .current-menu-parent > a,
+.navigation .menu > .current-menu-ancestor > a,
+.navigation li:hover > a:after,
+.navigation .current-menu-item > a:after,
+.navigation .current-menu-parent > a:after,
+.navigation .current-menu-ancestor > a:after,
+.navigation .menu li li:hover > a,
+.navigation .menu li li.current-menu-item > a,
+.tag-share .post-tags a:hover,
+.post-share-icons a:hover,
+.post-share-icons .likes-count,
+.author-box .author > span,
+.comments-area .section-head .number,
+.comments-list .comment-reply-link,
+.main-footer.dark .social-link:hover,
+.lower-footer .social-icons .fa,
+.archive-head .sub-title,
+.social-share a:hover,
+.social-icons a:hover,
+.post-meta .post-cat > a,
+.post-meta-c .post-author > a,
+.large-post-b .post-footer .author a,
+.trendy-slider .post-cat a,
+.main-pagination .next a:hover,
+.main-pagination .previous a:hover,
+.main-pagination.number .current,
+.post-content a,
+.widget-about .more,
+.widget-about .social-icons .social-btn:hover,
+.widget-social .social-link:hover,
+.woocommerce .star-rating:before,
+.woocommerce .star-rating span:before,
+.woocommerce .amount,
+.woocommerce .order-select .drop a:hover,
+.woocommerce .order-select .drop li.active,
+.woocommerce-page .order-select .drop a:hover,
+.woocommerce-page .order-select .drop li.active,
+.woocommerce .widget_price_filter .price_label .from,
+.woocommerce .widget_price_filter .price_label .to,
+.woocommerce div.product div.summary p.price,
+.woocommerce div.product div.summary span.price,
+.woocommerce #content div.product div.summary p.price,
+.woocommerce #content div.product div.summary span.price {
+  color: #ec0e0e;
+}
+
+.products-block .more-link:hover,
+.beauty-slider .slick-dots .slick-active button,
+.page-links .current,
+.page-links a:hover,
+.page-links > span,
+.woocommerce nav.woocommerce-pagination ul li span.current,
+.woocommerce nav.woocommerce-pagination ul li a:hover {
+  border-color: #ec0e0e;
+}
+
+.woocommerce .widget_price_filter .ui-slider .ui-slider-handle {
+  background-color: #ec0e0e;
+}
+
+.post-title-alt:after,
+.block-head-b .title {
+  border-bottom: 1px solid #ec0e0e;
+}
+
+.widget_categories a:before,
+.widget_product_categories a:before,
+.widget_archive a:before {
+  border: 1px solid #ec0e0e;
+}
+
+/* Change text / contrast font */
+body,
+input,
+textarea,
+select,
+.archive-head .description,
+.text,
+.post-content,
+.textwidget,
+.post-meta .post-cat > span,
+.widget_categories a,
+.widget_product_categories a,
+.widget_archive a,
+.woocommerce .woocommerce-message,
+.woocommerce .woocommerce-error,
+.woocommerce .woocommerce-info,
+.woocommerce form .form-row,
+.woocommerce .woocommerce-noreviews,
+.woocommerce #reviews #comments ol.commentlist .description,
+.woocommerce-cart .cart-empty,
+.woocommerce-cart .cart-collaterals .cart_totals table {
+  font-family: Lato, Arial, sans-serif;
+  letter-spacing: 0;
+  -webkit-font-smoothing: initial;
+}
+
+/* Change main body and heading font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.top-bar-content,
+.search-action .search-field,
+.main-head .title,
+.navigation,
+.tag-share,
+.post-share-b .service,
+.author-box,
+.comments-list .comment-content,
+.main-footer.dark .back-to-top,
+.lower-footer .social-icons,
+.main-footer .social-strip .social-link,
+.archive-head,
+.cat-label a,
+.section-head,
+.post-title-alt,
+.post-title,
+.block-heading,
+.block-head-b,
+.small-post .post-title,
+.likes-count .number,
+.grid-post-b .read-more-btn,
+.list-post-b .read-more-btn,
+.post-footer .read-more,
+.post-footer .social-share,
+.post-footer .social-icons,
+.large-post-b .post-footer .author a,
+.products-block .more-link,
+.main-slider,
+.slider-overlay .heading,
+.large-slider,
+.large-slider .heading,
+.grid-slider .category,
+.grid-slider .heading,
+.carousel-slider .category,
+.carousel-slider .heading,
+.grid-b-slider .heading,
+.main-pagination,
+.main-pagination .load-button,
+.page-links,
+.post-content .read-more,
+.widget-about .more,
+.widget-posts .post-title,
+.widget-posts .posts.full .counter:before,
+.widget-cta .label,
+.social-follow .service-link,
+.widget_categories,
+.widget_product_categories,
+.widget_archive,
+.mobile-menu,
+.woocommerce .main .button,
+.woocommerce .quantity .qty,
+.woocommerce nav.woocommerce-pagination,
+.woocommerce-cart .post-content,
+.woocommerce .woocommerce-ordering,
+.woocommerce-page .woocommerce-ordering,
+.woocommerce ul.products,
+.woocommerce.widget,
+.woocommerce div.product,
+.woocommerce #content div.product,
+.woocommerce-cart .cart-collaterals .cart_totals .button,
+.woocommerce .checkout .shop_table thead th,
+.woocommerce .checkout .shop_table .amount,
+.woocommerce-checkout #payment #place_order {
+  font-family: "Open Sans", Arial, sans-serif;
+}
+
+/* Remove uppercase text on several elements */
+.author-box .author > a,
+.comments-list .comment-author,
+.post-title-alt,
+.post-title,
+.slider-overlay .heading,
+.large-slider .heading,
+.grid-slider .heading,
+.carousel-slider .heading,
+.grid-b-slider .heading,
+.main-pagination.number,
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6,
+.widget_calendar tfoot a,
+.woocommerce span.onsale,
+.woocommerce .order-select,
+.woocommerce-page .order-select,
+.woocommerce ul.products li.product,
+.woocommerce ul.products .added_to_cart,
+.woocommerce .widget_price_filter .price_slider_amount,
+.woocommerce ul.cart_list li a,
+.woocommerce ul.product_list_widget li a,
+.woocommerce.widget_shopping_cart .total > strong,
+.woocommerce div.product .product-cat,
+.woocommerce #content div.product .product-cat,
+.woocommerce div.product .product_title,
+.woocommerce #content div.product .product_title,
+.woocommerce div.product .product_meta,
+.woocommerce #content div.product .product_meta,
+.woocommerce div.product .woocommerce-tabs ul.tabs li a,
+.woocommerce #content div.product .woocommerce-tabs ul.tabs li a,
+.woocommerce table.shop_attributes,
+.woocommerce #reviews #comments ol.commentlist li .meta strong,
+.woocommerce #reviews .comment-form-rating,
+.woocommerce-cart table.cart .label,
+.woocommerce-cart table.cart .product-name > a,
+.woocommerce-cart table.cart .product-cat a,
+.woocommerce .checkout .shop_table thead th {
+  text-transform: none;
+}
+
+/**
+ * Header and Nav
+ */
+.main-head {
+  border-color: #e7e7e7;
+}
+
+.main-head.compact .posts-ticker {
+  letter-spacing: 0;
+}
+
+.main-head.compact .posts-ticker a {
+  text-transform: none;
+}
+
+.main-head.compact .inner.sticky-bar {
+  border-color: #e7e7e7;
+}
+
+.top-bar.dark .top-bar-content {
+  background: #000;
+}
+
+.navigation {
+  letter-spacing: 0.035em;
+  font-size: 12px;
+}
+
+.navigation .menu > li > a {
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+}
+
+.navigation .menu li li a {
+  color: #313131;
+}
+
+.navigation .mega-menu .recent-posts .post {
+  text-align: left;
+}
+
+.navigation .mega-menu .recent-posts .post-title {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.navigation .mega-menu .post-meta {
+  font-size: 10px;
+}
+
+.navigation.inline {
+  letter-spacing: 0;
+  color: #383838;
+}
+
+.navigation.inline .menu > li > a {
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  -webkit-font-smoothing: antialiased;
+}
+
+.navigation.dark {
+  background: #000;
+}
+
+.navigation.dark .menu > li > a,
+.navigation.dark .menu > .current-menu-item > a,
+.navigation.dark .menu > .current-menu-parent > a,
+.navigation.dark .menu > .current-menu-ancestor > a {
+  color: #fff;
+}
+
+.navigation.dark .menu li:hover > a,
+.navigation.dark .menu li li:hover > a,
+.navigation.dark .menu li:hover > a:after {
+  color: #ec0e0e;
+}
+
+.navigation.dark .menu > li li a {
+  border-color: rgba(187, 187, 187, 0.15);
+}
+
+.mobile-menu li a {
+  letter-spacing: 0.08em;
+}
+
+.the-wrap.head {
+  border-color: #e7e7e7;
+}
+
+/**
+ * General components and global changes
+ */
+::-moz-selection {
+  background: rgba(236, 14, 14, 0.7);
+  color: #fff;
+}
+::selection {
+  background: rgba(236, 14, 14, 0.7);
+  color: #fff;
+}
+
+::-moz-selection {
+  background: rgba(236, 14, 14, 0.7);
+  color: #fff;
+}
+
+input[type="submit"],
+button, input[type="button"],
+.button {
+  font-family: Lato, Arial, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+input,
+textarea,
+select {
+  font-size: 14px;
+}
+
+input {
+  height: 2.64286em;
+}
+
+blockquote {
+  font-family: Lora, Georgia, serif;
+  font-size: 17px;
+  color: #989898;
+}
+
+.section-head {
+  margin-top: 65px;
+  border-bottom: 1px solid #e7e7e7;
+  text-align: left;
+}
+
+.section-head .title {
+  display: inline-block;
+  margin-bottom: -1px;
+  padding: 0 1px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ec0e0e;
+  font-size: 17px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.section-head:before, .section-head:after {
+  display: none !important;
+}
+
+.post-title,
+.post-title-alt {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #000;
+}
+
+.post-title a,
+.post-title-alt a {
+  color: #000;
+}
+
+.post-title-alt {
+  font-size: 29px;
+}
+
+@media (max-width: 480px) {
+  .post-title-alt {
+    font-size: 24px;
+  }
+}
+
+.post-title-alt:after {
+  display: none;
+}
+
+.text,
+.post-content,
+.textwidget {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #616161;
+}
+
+.post-meta {
+  font-family: Lato, Arial, sans-serif;
+  font-size: 11px;
+}
+
+.post-meta .post-author,
+.post-meta time {
+  letter-spacing: 0.025em;
+}
+
+.main-pagination .next a,
+.main-pagination .previous a {
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+.main {
+  margin-top: 55px;
+  margin-bottom: 80px;
+}
+
+/**
+ * Posts adjustments
+ */
+.large-post-b .read-more a {
+  padding: 13px 19px;
+  border: 1px solid #e5e5e5;
+  background: #fbfbfb;
+  color: #777;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  -webkit-font-smoothing: initial;
+}
+
+.large-post-b .read-more a:hover {
+  background: #000;
+  color: #fff;
+}
+
+.large-post-b .read-more a:before {
+  display: none;
+}
+
+.large-post-b .read-more a span {
+  padding: 0;
+  background: transparent;
+}
+
+.post-footer {
+  margin-top: 45px;
+}
+
+.post-footer .read-more {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.list-post-b .read-more-btn,
+.grid-post .read-more-btn {
+  padding: 13px 19px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.list-post:not(.list-post-b) {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 35px;
+}
+
+.list-post:not(.list-post-b) .content {
+  display: block;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin-bottom: 5px;
+}
+
+.list-post:not(.list-post-b) .post-title {
+  font-size: 21px;
+  margin-top: 0;
+}
+
+.grid-post .post-title-alt {
+  font-size: 20px;
+}
+
+.posts-dynamic {
+  margin-bottom: -50px;
+}
+
+.posts-dynamic .grid-post {
+  margin-bottom: 50px;
+}
+
+/**
+ * Single Post
+ */
+.single-magazine .post-top .post-title {
+  letter-spacing: -0.025em;
+}
+
+.single-cover .overlay .post-by {
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.post-content {
+  font-size: 16px;
+  line-height: 1.8125;
+}
+
+.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6 {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #000;
+}
+
+.tag-share .post-tags a {
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.post-share-icons a {
+  color: #161616;
+}
+
+.author-box .author > a {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #000;
+}
+
+.author-box .author-bio {
+  font-size: 15px;
+}
+
+.related-posts .posts {
+  margin-bottom: -30px;
+  padding-top: 35px;
+  text-align: initial;
+}
+
+.related-posts .post-title {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #000;
+  font-size: 14px;
+}
+
+.related-posts .post-meta {
+  display: none;
+}
+
+.comments-list {
+  margin-bottom: -15px;
+}
+
+.comments-list .comment-author {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.comments-list .comment-text {
+  margin-bottom: -5px;
+}
+
+.comments-list > .comment,
+.comments-list > li {
+  padding: 45px 0;
+}
+
+.comments-list .comment .children {
+  margin-top: 45px;
+}
+
+.comments-list .children li.comment {
+  margin-top: 45px;
+  padding-top: 45px;
+}
+
+.comments-list .comment-reply-link {
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+#cancel-comment-reply-link {
+  margin-top: -38px;
+}
+
+.comment-respond .section-head {
+  border: 0;
+  border-top: 1px solid #f2f2f2;
+  padding-top: 55px;
+  margin-top: 55px;
+  text-align: center;
+}
+
+.comment-respond .section-head .title {
+  border: 0;
+}
+
+.comment-respond .section-head .title:after {
+  content: "";
+  display: block;
+  margin: 0 auto;
+  margin-top: 8px;
+  width: 24px;
+  height: 1px;
+  background: #ec0e0e;
+}
+
+/**
+ * Home & Archives changes
+ */
+.blocks .block {
+  margin-bottom: 50px;
+}
+
+.block-heading .title {
+  font-size: 15px;
+}
+
+.small-post .post-title {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.slider-overlay .heading {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #000;
+}
+
+.slider-overlay .excerpt {
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+.large-slider .heading {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #000;
+}
+
+.grid-slider .heading {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #000;
+}
+
+.grid-slider .category {
+  font-size: 11px;
+}
+
+.grid-b-slider .heading {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+}
+
+.archive-head .sub-title {
+  font-family: Lato, Arial, sans-serif;
+  font-weight: 400;
+  color: #999 !important;
+  letter-spacing: 0.05em;
+}
+
+.archive-head .title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/**
+ * Sidebar & Widgets adjustments
+ */
+.sidebar .widget {
+  margin-bottom: 55px;
+}
+
+.sidebar .widget-title {
+  border: 0;
+  color: #000;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.sidebar .widget-title:after {
+  content: "";
+  display: block;
+  margin: 0 auto;
+  margin-top: 8px;
+  width: 24px;
+  height: 1px;
+  background: #ec0e0e;
+}
+
+.widget_mc4wp_form_widget,
+.widget-subscribe {
+  background: #fff;
+  position: relative;
+  border: 5px solid transparent;
+}
+
+.widget_mc4wp_form_widget .widget-title,
+.widget-subscribe .widget-title {
+  margin-top: 10px;
+  margin-bottom: 17px;
+  background: transparent;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #000;
+  font-weight: 900;
+  font-size: 21px;
+  line-height: 1.3;
+  text-transform: none;
+}
+
+.widget_mc4wp_form_widget .widget-title:after,
+.widget-subscribe .widget-title:after {
+  display: none;
+}
+
+.widget_mc4wp_form_widget p:last-of-type,
+.widget-subscribe p:last-of-type {
+  margin-top: -16px;
+}
+
+.widget_mc4wp_form_widget .message,
+.widget-subscribe .message {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  max-width: 85%;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 13px;
+}
+
+.widget_mc4wp_form_widget:before,
+.widget-subscribe:before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+  box-sizing: border-box;
+  top: -5px;
+  left: -5px;
+  z-index: 1;
+  border: 5px solid #f5f5f5;
+  box-shadow: inset 0 0 0 1px #d7d7d7;
+  pointer-events: none;
+}
+
+.widget .mc4wp-form .message,
+.widget-subscribe .message {
+  font-family: Lato, Arial, sans-serif;
+}
+
+.widget-cta .label {
+  font-weight: 600;
+  font-size: 11px;
+  color: #161616;
+  padding: 9px 14px;
+  letter-spacing: 0.15em;
+}
+
+.widget-posts .content {
+  margin-top: 2px;
+}
+
+.widget-posts .image-link img {
+  margin-right: 21px;
+}
+
+.widget-posts .post-title {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.widget-posts .posts.large .post-title {
+  font-size: 16px;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+}
+
+.widget-posts .posts.large .content {
+  margin-top: 14px;
+}
+
+.widget-posts .posts.large time {
+  letter-spacing: 0.07em;
+}
+
+/* Footer Changes */
+.upper-footer .widget-about .about-text {
+  font-size: 14px;
+}
+
+.upper-footer .widget-about .text.below {
+  color: #7a7a7a;
+}
+
+.upper-footer .widget-title {
+  color: #222;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.upper-footer .widget-posts .post-meta {
+  color: #7a7a7a;
+}
+
+.lower-footer .copyright {
+  font-size: 13px;
+}
+
+.lower-footer .social-icons {
+  letter-spacing: 0.12em;
+}

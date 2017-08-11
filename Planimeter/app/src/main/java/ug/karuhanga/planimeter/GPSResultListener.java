@@ -1,6 +1,7 @@
 package ug.karuhanga.planimeter;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONObject;
 
@@ -11,5 +12,5 @@ import org.json.JSONObject;
 interface GPSResultListener {
     void showLoader();
     void hideLoader();
-    boolean displayResult(JSONObject layerData, Double area, LatLng center);
+    boolean displayResult(PolylineOptions polylineOptions, Double area, LatLng center);
 }

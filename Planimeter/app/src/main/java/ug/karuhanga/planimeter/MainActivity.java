@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,27 +20,34 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.maps.android.data.geojson.GeoJsonLayer;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+/*
+**TODO  App Icon Change
+*       Fab Simulation Change Icon
+*       Spinner when loading simulation
+*       Remove unnecessary Toasts
+*       Add other simulation objects
+ */
 
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements Constants, View.OnClickListener, GPSResultListener, OnMapReadyCallback {
     //File-Wide values
     private GPSDataManager gpsDataManager;
     private AcclDataManager acclDataManager;
     private GoogleMap resultMap;
-    private GeoJsonLayer geoJsonLayer;
+    Polyline polyline;
+    private PolylineOptions polylineOptions;
     private LatLng center;
     private FloatingActionButton fab_start_recording;
     private FloatingActionButton fab_end_recording;
-    private FloatingActionButton fab_on_turn;
     private FloatingActionButton fab_simulate;
     private TextView textViewUpdate;
     private TextView textViewGuide;
     private MapView mapViewResult;
     private CardView cardMap;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,27 +60,76 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         //find necessary resources
         fab_start_recording= (FloatingActionButton) findViewById(R.id.fab_start_recording);
         fab_end_recording= (FloatingActionButton) findViewById(R.id.fab_end_recording);
-        fab_on_turn= (FloatingActionButton) findViewById(R.id.fab_on_turn);
         fab_simulate= (FloatingActionButton) findViewById(R.id.fab_simulate);
         textViewUpdate= (TextView) findViewById(R.id.textView_update);
         textViewGuide= (TextView) findViewById(R.id.textView_guide);
         mapViewResult= (MapView) findViewById(R.id.mapView_result);
         cardMap= (CardView) findViewById(R.id.card_map);
+        progressBar= (ProgressBar) findViewById(R.id.progressBar_Main);
+        polylineOptions= null;
+        polyline= null;
 
         //set on-click listeners
         fab_start_recording.setOnClickListener(this);
         fab_end_recording.setOnClickListener(this);
-        fab_on_turn.setOnClickListener(this);
         fab_simulate.setOnClickListener(this);
+
+        Bundle bundle;
+        try {
+            bundle= savedInstanceState.getBundle("mapBundle");
+        }catch (RuntimeException e){
+            bundle= savedInstanceState;
+        }
+
+        mapViewResult.onCreate(bundle);
 
 
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        mapViewResult.onStart();
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        mapViewResult.onStop();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        mapViewResult.onResume();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        mapViewResult.onPause();
+    }
+
+    @Override
+    public void onLowMemory(){
+        super.onLowMemory();
+        mapViewResult.onLowMemory();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        Bundle mapBundle= new Bundle();
+        outState.putBundle("mapBundle", mapBundle);
+        super.onSaveInstanceState(outState);
+        mapViewResult.onSaveInstanceState(mapBundle);
+    }
+
     //start recording user position (only if GPS permission was granted for Android Versions starting Marsmellow)
-    private void startGPSComponent(String flag){
+    private void startDataRecording(String flag){
         //inform user if failed
         if (flag.equals("Failed")){
-            Toast.makeText(this, "Unfortunately, the GPS Service is unavailable", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please grant permissions for the service to run", Toast.LENGTH_LONG).show();
+            exitRecordingMode();
         }
         else{
             if (permitted()){
@@ -81,44 +138,57 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
             }
             else{
                 //request permission
-                getLocationPermission();
+                getPermissions();
             }
         }
 
     }
 
     //request location permission (for versions since Marshmallow... request permission Dynamically)
-    private void getLocationPermission(){
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, CODE_LOCATION_REQUEST);
+    private void getPermissions(){
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_LOCATION_REQUEST);
     }
 
     //check if granted location permission (for versions since Marshmallow... request permission Dynamically)
     private boolean permitted(){
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        return ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                && (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                && (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED)
+                && (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                );
+    }
+
+    private boolean allGranted(@NonNull int[] grantResults){
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (grantResults.length > 0 && allGranted(grantResults)) {
             //try restart after permission granted
-            startGPSComponent("Passed");
+            startDataRecording("Passed");
         }
         else {
             //send failed signal if permission rejected
-            startGPSComponent("Failed");
+            startDataRecording("Failed");
         }
     }
 
     //perform actions that consist of recording necessary data
     private void enterRecordingMode(){
-        startGPSComponent("Initial");
+        startDataRecording("Initial");
         acclDataManager.startRecording();
+        progressBar.setVisibility(View.VISIBLE);
         textViewUpdate.setText(getText(R.string.textView_update_2));
         textViewGuide.setText(getText(R.string.textView_guide_2));
         fab_start_recording.setVisibility(View.INVISIBLE);
         fab_end_recording.setVisibility(View.VISIBLE);
-        fab_on_turn.setVisibility(View.VISIBLE);
         fab_simulate.setVisibility(View.INVISIBLE);
         cardMap.setVisibility(View.INVISIBLE);
     }
@@ -130,8 +200,8 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         textViewGuide.setText(getText(R.string.textView_guide_1));
         fab_start_recording.setVisibility(View.VISIBLE);
         fab_end_recording.setVisibility(View.INVISIBLE);
-        fab_on_turn.setVisibility(View.INVISIBLE);
         fab_simulate.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
         boolean result= gpsDataManager.evaluateArea();
         if (!result){
             displayResult(null, null, null);
@@ -139,12 +209,6 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
 
     }
 
-    //data collection actions related to turning
-    public void onTurn(){
-        if (permitted()){
-            gpsDataManager.recordTurn();
-        }
-    }
 
     //onClick Listener Methods
     @Override
@@ -154,9 +218,6 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         }
         else if (view.equals(fab_end_recording)){
             exitRecordingMode();
-        }
-        else if (view.equals(fab_on_turn)){
-            onTurn();
         }
         else if (view.equals(fab_simulate)){
             Intent intent= new Intent(this, Simulate.class);
@@ -177,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
     }
 
     @Override
-    public boolean displayResult(JSONObject layerData, Double area, LatLng center) {
+    public boolean displayResult(PolylineOptions polylineOptions, Double area, LatLng center) {
         double gpsArea= (area==null)? 0.0 : area;
         if (gpsArea>0.0) {
             String result = String.format("%.3f", gpsArea);
@@ -186,22 +247,24 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         else{
             this.textViewUpdate.setText("Unfortunately, there was no result");
         }
-
-        try {
-            geoJsonLayer= new GeoJsonLayer(this.resultMap, layerData);
-        }catch (IllegalArgumentException e){
-            return false;
-        }
         mapViewResult.getMapAsync(this);
         this.center= (center==null)? this.center: center;
+        this.polylineOptions= polylineOptions;
         return true;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.resultMap= googleMap;
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(center));
-        geoJsonLayer.addLayerToMap();
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 7.0f));
+        if (polylineOptions==null){
+            return;
+        }
+        if (polyline!=null){
+            polyline.remove();
+        }
+        Toast.makeText(this, polylineOptions.toString(), Toast.LENGTH_SHORT).show();
+        this.polyline= this.resultMap.addPolyline(polylineOptions);
         cardMap.setVisibility(View.VISIBLE);
     }
 }
