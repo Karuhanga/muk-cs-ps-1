@@ -173,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         }
         else{
             this.textViewUpdate.setText("Unfortunately, there was no result");
+            return false;
         }
         mapViewResult.getMapAsync(this);
         this.center= (center==null)? this.center: center;
@@ -182,8 +183,11 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        if (googleMap==null){
+            return;
+        }
         this.resultMap= googleMap;
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 7.0f));
+        resultMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 7.0f));
         if (polylineOptions==null){
             return;
         }
