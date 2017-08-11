@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
 
         try {
             geoJsonLayer= new GeoJsonLayer(this.resultMap, layerData);
-        }catch (NullPointerException e){
+        }catch (IllegalArgumentException e){
             return false;
         }
         mapViewResult.getMapAsync(this);

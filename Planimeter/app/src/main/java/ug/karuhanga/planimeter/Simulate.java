@@ -4,6 +4,7 @@ package ug.karuhanga.planimeter;/*
     Partial credits to Lawrence D'Oliveiro <ldo@geek-central.gen.nz>.
 
 */
+//TODO Previous Activity Not Getting Destroyed on new creation
 
 
 import android.support.v7.app.AppCompatActivity;
