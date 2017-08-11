@@ -9,6 +9,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
+import com.google.maps.android.data.geojson.GeoJsonFeature;
+import com.google.maps.android.data.geojson.GeoJsonLineString;
+import com.google.maps.android.data.geojson.GeoJsonLineStringStyle;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,12 +87,27 @@ final class GPSDataManager implements LocationListener, Constants {
         latLngs.add(latLngs.get(0));
     }
 
-    double evaluateArea(){
+    boolean evaluateArea(){
         if (len_locations<3){
-            return 0.0;
+            return false;
         }
         double result= SphericalUtil.computeArea(this.latLngs);
-        return result;
+        renderResult(result);
+        return true;
+    }
+
+    private void renderResult(double result) {
+        GeoJsonLineString lineString= new GeoJsonLineString(latLngs);
+        GeoJsonFeature feature= new GeoJsonFeature(lineString, "layerData", null, null);
+        JSONObject object= new JSONObject();
+        try {
+            object.put("type", "Feature");
+            object.put("geometry", feature);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            object= null;
+        }
+        ((GPSResultListener) context).displayResult(object, Double.valueOf(result), latLngs.get(0));
     }
 
     //Location Listener Methods
