@@ -40,7 +40,6 @@ final class AcclDataManager implements SensorEventListener, StepTakenListener {
                 if (stepCount>15 && !(((StepTakenListener) context).paused())){
                     ((StepTakenListener) context).pauseRecordings();
                 }
-                Toast.makeText(context, "Step "+String.valueOf(stepCount), Toast.LENGTH_SHORT).show();
             }
         });
     }

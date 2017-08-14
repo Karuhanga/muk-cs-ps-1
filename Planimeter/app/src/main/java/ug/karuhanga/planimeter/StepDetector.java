@@ -31,7 +31,7 @@ final class StepDetector extends Thread {
         this.event = event;
         this.context= context;
         this.listener = listener;
-        mLimit = 5;// TODO: vary this constant to find sweet spot
+        mLimit = 5f;// TODO: vary this constant to find sweet spot
         mLastMatch = -1;
         int h = 480; // TODO: vary this constant to find sweet spot
         mYOffset = h * 0.5f;

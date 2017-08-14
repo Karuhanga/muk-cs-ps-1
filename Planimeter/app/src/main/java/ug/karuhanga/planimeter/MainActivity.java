@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
             return;
         }
         this.resultMap= googleMap;
-        resultMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 7.0f));
+        resultMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15.0f));
         if (polylineOptions==null){
             return;
         }

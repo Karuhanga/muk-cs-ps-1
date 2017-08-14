@@ -171,8 +171,8 @@ public class Picker extends android.app.Activity
         PickerList.clear();
 
         Resources res= getApplicationContext().getResources();
-        int[] objs= new int[]{R.raw.default_obj, R.raw.asset1_obj, R.raw.asset2_obj};
-        int[] mtls= new int[]{R.raw.default_mtl, R.raw.asset1_mtl, R.raw.asset2_mtl};
+        int[] objs= new int[]{R.raw.default_obj, R.raw.ch_obj, R.raw.bg4_obj};
+        int[] mtls= new int[]{R.raw.default_mtl, R.raw.ch_mtl, R.raw.bg4_mtl};
 
         for (int i = 0; i < 3; i++) {
           PickerList.add(new PickerItem(new int[]{objs[i], mtls[i]}, res.getResourceName(objs[i]).split("_")[0].split("/")[1]));
