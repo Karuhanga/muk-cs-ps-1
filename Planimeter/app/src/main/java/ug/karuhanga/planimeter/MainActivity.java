@@ -26,8 +26,6 @@ import com.google.android.gms.maps.model.PolylineOptions;
 /*
 **TODO  App Icon Change
 *       Fab Simulation Change Icon
-*       Spinner when loading simulation
-*       Remove unnecessary Toasts
 *       Add other simulation objects
  */
 
