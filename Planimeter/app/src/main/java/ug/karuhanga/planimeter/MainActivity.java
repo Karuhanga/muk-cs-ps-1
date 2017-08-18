@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements Constants, View.O
         return true;
     }
 
-    //perform actions that consist of recording necessary data
+    //initiate necessary data collection 
     private void enterRecordingMode(){
         startDataRecording("Initial");
         acclDataManager.startRecording();
