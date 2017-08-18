@@ -1,0 +1,92 @@
+#code-in-action {
+  min-width: 1000px;
+  position: relative;
+}
+
+#code-in-action #phone {
+  float: right;
+  width: 360px;
+  height: 615px;
+  background: url(/maps/documentation/android-api/images/n5_2x.png) 50% 0% no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  z-index: 1;
+}
+
+#phone-video {
+  position: absolute;
+  top: 51px;
+  left: 42px;
+  width: 276px;
+  height: 489px;
+  background: #000 url(//ssl.gstatic.com/ui/v1/activityindicator/loading_19.gif) 50% 50% no-repeat;
+}
+
+#phone-video video {
+  background: #000;
+  width: 100%;
+  height: 100%;
+}
+
+#phone #phone-glare {
+  z-index: 4;
+  width: 360px;
+  height: 615px;
+  background: url(/maps/documentation/android-api/images/nexus-glare.png) 0% 0% no-repeat;
+  background-size: contain;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+#phone #phone-play {
+  width: 94px;
+  height: 94px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  margin-top: -47px;
+  cursor: pointer;
+  margin-left: -39px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 3px 4px 6px 0px rgba(0, 0, 0, 0.24);
+  display: none;
+}
+
+#phone-play img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -14px;
+  margin-left: -13px;
+  width: 27px;
+  height: 29px;
+}
+
+#phone #phone-loading {
+  width: 94px;
+  height: 94px; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  margin-top: -47px;
+  cursor: pointer;
+  margin-left: -39px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 3px 4px 6px 0px rgba(0, 0, 0, 0.24);
+  display: none;
+}
+
+#phone-loading img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -9px;
+  margin-left: -9px;
+}

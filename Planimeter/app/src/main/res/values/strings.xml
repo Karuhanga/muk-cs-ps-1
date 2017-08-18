@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Planimeter</string>
+    <string name="textView_guide_1">Hit the start button to start recording</string>
+    <string name="textView_guide_2">Hit the turn button on each turn and stop when measurement is complete</string>
+    <string name="textView_update_1">Ready...</string>
+    <string name="textView_update_2">Recording...</string>
+
+
+    <!-- menu items -->
+    <string name="pick_file">New Simulation...</string>
+    <string name="reset_view">Reset View</string>
+    <string name="random_view">Random View</string>
+    <string name="options_lighting">Lighting...</string>
+    <string name="options_orient_faces">Orient Faces...</string>
+
+    <!-- prompts -->
+    <string name="picker_prompt">Select .obj File</string>
+    <string name="lighting_title">Lighting</string>
+    <string name="orient_faces_title">Front Face Orientation</string>
+
+    <!-- buttons -->
+    <string name="open">Open</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="clockwise">Clockwise</string>
+    <string name="anticlockwise">Anticlockwise</string>
+
+    <!-- messages -->
+    <string name="startup_prompt">Use Menu/Open... to open a .obj file</string>
+    <string name="obj_load_fail">Error loading file: %s</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="name_objects_intent">objects</string>
 </resources>
